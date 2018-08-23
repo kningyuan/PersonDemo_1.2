@@ -43,6 +43,7 @@ function decodeIdentity(id_bytes) {
 var invokeChaincode = async function (peerNames, channelName, chaincodeName, fcn, args, username, org_name) {
 	logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
 	var error_message = null;
+	var t_msg = null;
 	var tx_id_string = null;
 	try {
 		// first setup the client for this org
@@ -93,13 +94,11 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, fcn
 				logger.info('invoke chaincode proposal was good');
 			} else {
 				logger.error('invoke chaincode proposal was bad');
-				logger.error(proposalResponses[i].response);
-				let res = proposalResponses[i].response;
-				logger.error(res.payload.toString());
+				logger.error(proposalResponses[i].message);
 			}
 			all_good = all_good & one_good;
 		}
-
+		t_msg = proposalResponses[1].message;
 		if (all_good) {
 			console.log('=============================================================');
 			var endorser1 = decodeIdentity(proposalResponses[0].endorsement.endorser);
@@ -190,6 +189,7 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, fcn
 		} else {
 			error_message = util.format('Failed to send Proposal and receive all good ProposalResponse');
 			logger.debug(error_message);
+			return t_msg
 		}
 	} catch (error) {
 		logger.error('Failed to invoke due to error: ' + error.stack ? error.stack : error);
@@ -201,12 +201,12 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, fcn
 			'Successfully invoked the chaincode %s to the channel \'%s\' for transaction ID: %s',
 			org_name, channelName, tx_id_string);
 		logger.info(message);
-
 		return tx_id_string;
 	} else {
 		let message = util.format('Failed to invoke chaincode. cause:%s', error_message);
 		logger.error(message);
-		throw new Error(message);
+		return message
+//		throw new Error(message);
 	}
 };
 
