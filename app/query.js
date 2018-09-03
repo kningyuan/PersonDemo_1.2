@@ -49,7 +49,8 @@ var queryChaincode = async function(peer, channelName, chaincodeName, args, fcn,
 			for (let i = 0; i < response_payloads.length; i++) {
 				logger.info(args[0]+' now has ' + response_payloads[i].toString('utf8'));
 			}
-			return args[0]+' : ' + response_payloads[0].toString('utf8');
+//			return args[0]+' : ' + response_payloads[0].toString('utf8');
+			return response_payloads[0].toString('utf8');
 		} else {
 			logger.error('response_payloads is null');
 			return 'response_payloads is null';
