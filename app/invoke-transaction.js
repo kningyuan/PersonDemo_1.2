@@ -95,10 +95,11 @@ var invokeChaincode = async function (peerNames, channelName, chaincodeName, fcn
 			} else {
 				logger.error('invoke chaincode proposal was bad');
 				logger.error(proposalResponses[i].message);
+				t_msg = proposalResponses[i].message;
 			}
 			all_good = all_good & one_good;
 		}
-		t_msg = proposalResponses[1].message;
+
 		if (all_good) {
 			console.log('=============================================================');
 			var endorser1 = decodeIdentity(proposalResponses[0].endorsement.endorser);
