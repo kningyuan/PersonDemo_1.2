@@ -14,6 +14,8 @@ services:
       - COUCHDB_PASSWORD=
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - /var/hyperledger/couchdb0:/opt/couchdb/data
     ports:
       - "5984:5984"
 
@@ -34,6 +36,8 @@ services:
       - COUCHDB_PASSWORD=
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - /var/hyperledger/couchdb1:/opt/couchdb/data
     ports:
       - "6984:5984"
 
@@ -54,6 +58,8 @@ services:
       - COUCHDB_PASSWORD=
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - /var/hyperledger/couchdb2:/opt/couchdb/data
     ports:
       - "7984:5984"
 
@@ -74,6 +80,8 @@ services:
       - COUCHDB_PASSWORD=
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
+    volumes:
+      - /var/hyperledger/couchdb3:/opt/couchdb/data
     ports:
       - "8984:5984"
 
